@@ -72,4 +72,47 @@ contract Treasury is Ownable, TokenPayable {
     function withdrawAllToken() external onlyOwner {
         _withdrawAllToken();
     }
+
+
+
+
+
+/////ADDED FUNCTIONS///////////
+
+    // Function to get the token address
+    function getTokenAddress() public view returns (address) {
+    return address(token);
+}
+
+// return the fee for submitting a job application in wei
+function getJobApplicationFee() external view returns (uint256) {
+  return 100; 
+}
+
+// return the platform fee for each successful job placement in wei
+function getPlatformFee() external view returns (uint256) {
+  return 500; 
+}
+
+function getApplicationWithdrawalFee() external view returns (uint256) {
+  return 50; // return the fee for withdrawing a job application in wei
+}
+
+function getPlacementWithdrawalFee() external view returns (uint256) {
+  return 250; // return the fee for withdrawing a job placement in wei
+}
+
+function getUpskillFee() external view returns (uint256) {
+  return 1000; // return the fee for accessing upskilling resources in wei
+}
+
+function getSuccessfulPlacementBonus() external view returns (uint256) {
+  return 10000; // return the bonus for successful job placements in wei
+}
+
+function getUnsuccessfulPlacementPenalty() external view returns (uint256) {
+  return 5000; // return the penalty for unsuccessful job placements in wei
+}
+
+
 }
