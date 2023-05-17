@@ -122,4 +122,64 @@ contract TreasuryTest is Test {
 
         assertEq(treasury.getBalance(), 0.8 ether);
     }
+
+
+
+
+
+/////ADDED FUNCTIONS///////////
+    function testGetTokenAddress() public {
+    assertEq(treasury.getTokenAddress(), token_address);
+}
+
+describe("Treasury", function () {
+  let treasury;
+  let token;
+
+  beforeEach(async function () {
+    const Token = await ethers.getContractFactory("Token");
+    token = await Token.deploy();
+    await token.deployed();
+
+    const Treasury = await ethers.getContractFactory("Treasury");
+    treasury = await Treasury.deploy(token.address);
+    await treasury.deployed();
+  });
+
+  it("returns the job application fee", async function () {
+    const fee = await treasury.getJobApplicationFee();
+    expect(fee).to.equal(100);
+  });
+
+  it("returns the platform fee", async function () {
+    const fee = await treasury.getPlatformFee();
+    expect(fee).to.equal(500);
+  });
+
+  it("returns the application withdrawal fee", async function () {
+    const fee = await treasury.getApplicationWithdrawalFee();
+    expect(fee).to.equal(50);
+  });
+
+  it("returns the placement withdrawal fee", async function () {
+    const fee = await treasury.getPlacementWithdrawalFee();
+    expect(fee).to.equal(250);
+  });
+
+  it("returns the upskill fee", async function () {
+    const fee = await treasury.getUpskillFee();
+    expect(fee).to.equal(1000);
+  });
+
+  it("returns the successful placement bonus", async function () {
+    const bonus = await treasury.getSuccessfulPlacementBonus();
+    expect(bonus).to.equal(10000);
+  });
+
+  it("returns the unsuccessful placement penalty", async function () {
+    const penalty = await treasury.getUnsuccessfulPlacementPenalty();
+    expect(penalty).to.equal(5000);
+  });
+});
+
 }
